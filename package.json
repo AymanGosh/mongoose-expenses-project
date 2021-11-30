@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
-  }, 
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AymanGosh/mongoose-expenses-project.git"
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/AymanGosh/mongoose-expenses-project#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "moment": "^2.29.1",
     "mongoose": "^6.0.14"
   }
