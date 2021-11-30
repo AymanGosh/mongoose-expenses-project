@@ -19,9 +19,30 @@ const jsonFile = require("../../expenses.json");
 
 /***************************1************************************/
 router.get("/expenses", function (req, res) {
-  Expense.find({}, null, { sort: { date: -1 } }, function (err, expenses) {
-    res.send(expenses);
-  });
+  const d1 = req.query.d1;
+  const d2 = req.query.d2;
+  if (!d1 && !d2) {
+    Expense.find({}, null, { sort: { date: -1 } }, function (err, expenses) {
+      res.send(expenses);
+    });
+  } else {
+    const date1 = moment(d1).format("LLLL");
+    const date2 = d2
+      ? moment(d2).format("LLLL")
+      : moment(new Date()).format("LLLL");
+    Expense.aggregate(
+      [
+        {
+          $match: {
+            date: { $gte: new Date(date1), $lt: new Date(date2) },
+          },
+        },
+      ],
+      function (err, results) {
+        res.send(results);
+      }
+    ).sort({ date: 1 });
+  }
 });
 /***************************2************************************/
 router.post("/expense", function (req, res) {
