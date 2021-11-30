@@ -69,7 +69,21 @@ router.get("/expenses/:group", function (req, res) {
       }
     );
   } else {
-    res.end();
+    Expense.aggregate(
+      [
+        { $match: { group: group } },
+        {
+          $group: {
+            _id: group,
+            totalAmount: { $sum: "$amount" },
+          },
+        },
+        { $sort: { totalAmount: -1 } },
+      ],
+      function (err, results) {
+        res.send(results);
+      }
+    );
   }
 });
 /***************************5************************************/
