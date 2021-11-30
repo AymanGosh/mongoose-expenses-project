@@ -8,14 +8,14 @@ mongoose.connect("mongodb://localhost/expensesDB", { useNewUrlParser: true });
 
 const jsonFile = require("../../expenses.json");
 
-// jsonFile.forEach((jf) =>
-//   new Expense({
-//     name: jf.name,
-//     amount: jf.amount,
-//     date: jf.date,
-//     group: jf.group,
-//   }).save()
-// );
+jsonFile.forEach((jf) =>
+  new Expense({
+    name: jf.name,
+    amount: jf.amount,
+    date: jf.date,
+    group: jf.group,
+  }).save()
+);
 
 /***************************1************************************/
 router.get("/expenses", function (req, res) {
